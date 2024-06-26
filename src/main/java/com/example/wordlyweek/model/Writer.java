@@ -14,7 +14,7 @@ public class Writer {
     private int writerId;
 
     @Column(name = "name")
-    private String name;
+    private String writerName;
 
     @Column(name = "bio")
     private String bio;
@@ -35,12 +35,12 @@ public class Writer {
         this.writerId = writerId;
     }
 
-    public String getName() {
-        return name;
+    public String getWriterName() {
+        return writerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
     }
 
     public String getBio() {
@@ -51,11 +51,11 @@ public class Writer {
         this.bio = bio;
     }
 
-    public List<Magazine> getMagazine() {
+    public List<Magazine> getMagazines() {
         return magazines;
     }
 
-    public void setMagazine(List<Magazine> magazines) {
+    public void setMagazines(List<Magazine> magazines) {
         this.magazines = magazines;
     }
 }

@@ -36,14 +36,14 @@ public class WriterJpaService implements WriterRepository {
     @Override
     public Writer addWriter(Writer writer) {
         List<Integer> magazineIds = new ArrayList<>();
-        for (Magazine magazine : writer.getMagazine()) {
+        for (Magazine magazine : writer.getMagazines()) {
             magazineIds.add(magazine.getMagazineId());
         }
         List<Magazine> magazines = magazineJpaRepository.findAllById(magazineIds);
         if (magazines.size() != magazineIds.size()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        writer.setMagazine(magazines);
+        writer.setMagazines(magazines);
         return writerJpaRepository.save(writer);
     }
 
@@ -51,22 +51,22 @@ public class WriterJpaService implements WriterRepository {
     public Writer updateWriter(int writerId, Writer writer) {
         try {
             Writer newWriter = writerJpaRepository.findById(writerId).get();
-            if (writer.getName() != null) {
-                newWriter.setName(writer.getName());
+            if (writer.getWriterName() != null) {
+                newWriter.setWriterName(writer.getWriterName());
             }
             if (writer.getBio() != null) {
                 newWriter.setBio(writer.getBio());
             }
-            if (writer.getMagazine() != null) {
+            if (writer.getMagazines() != null) {
                 List<Integer> writerIds = new ArrayList<>();
-                for (Magazine magazine : writer.getMagazine()) {
+                for (Magazine magazine : writer.getMagazines()) {
                     writerIds.add(magazine.getMagazineId());
                 }
                 List<Magazine> magazines = magazineJpaRepository.findAllById(writerIds);
                 if (magazines.size() != writerIds.size()) {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
                 }
-                newWriter.setMagazine(magazines);
+                newWriter.setMagazines(magazines);
             }
             return writerJpaRepository.save(newWriter);
         } catch (NoSuchElementException e) {
@@ -88,7 +88,7 @@ public class WriterJpaService implements WriterRepository {
     public List<Magazine> getWriterMagazine(int writerId) {
         try {
             Writer writer = writerJpaRepository.findById(writerId).get();
-            return writer.getMagazine();
+            return writer.getMagazines();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

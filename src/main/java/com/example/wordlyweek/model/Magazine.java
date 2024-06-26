@@ -13,7 +13,7 @@ public class Magazine {
     private int magazineId;
 
     @Column(name = "title")
-    private String title;
+    private String magazineName;
 
     @Column(name = "publicationdate")
     private String publicationDate;
@@ -28,17 +28,18 @@ public class Magazine {
     public int getMagazineId() {
         return magazineId;
     }
+    
 
     public void setMagazineId(int magazineId) {
         this.magazineId = magazineId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMagazineName() {
+        return magazineName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMagazineName(String magazineName) {
+        this.magazineName = magazineName;
     }
 
     public String getPublicationDate() {

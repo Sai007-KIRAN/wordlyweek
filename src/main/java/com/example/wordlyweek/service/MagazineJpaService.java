@@ -40,7 +40,7 @@ public class MagazineJpaService implements MagazineRepository {
         magazine.setWriters(writers);
 
         for (Writer write : writers) {
-            write.getMagazine().add(magazine);
+            write.getMagazines().add(magazine);
         }
         Magazine mag = mjr.save(magazine);
         wjr.saveAll(writers);
@@ -51,8 +51,8 @@ public class MagazineJpaService implements MagazineRepository {
         try {
             Magazine newMagazine = mjr.findById(magazineId).get();
 
-            if (magazine.getTitle() != null) {
-                newMagazine.setTitle(magazine.getTitle());
+            if (magazine.getMagazineName() != null) {
+                newMagazine.setMagazineName(magazine.getMagazineName());
             }
             if (magazine.getPublicationDate() != null) {
                 newMagazine.setPublicationDate(magazine.getPublicationDate());
@@ -60,7 +60,7 @@ public class MagazineJpaService implements MagazineRepository {
             if (magazine.getWriters() != null) {
                 List<Writer> writers = newMagazine.getWriters();
                 for (Writer writer : writers) {
-                    writer.getMagazine().remove(newMagazine);
+                    writer.getMagazines().remove(newMagazine);
                 }
                 wjr.saveAll(writers);
                 List<Integer> newWriterIds = new ArrayList<>();
@@ -69,7 +69,7 @@ public class MagazineJpaService implements MagazineRepository {
                 }
                 List<Writer> newWriter = wjr.findAllById(newWriterIds);
                 for (Writer writer : newWriter) {
-                    writer.getMagazine().add(newMagazine);
+                    writer.getMagazines().add(newMagazine);
                 }
                 wjr.saveAll(newWriter);
                 newMagazine.setWriters(newWriter);
@@ -85,7 +85,7 @@ public class MagazineJpaService implements MagazineRepository {
             Magazine magazine = mjr.findById(magazineId).get();
             List<Writer> writer = magazine.getWriters();
             for (Writer write : writer) {
-                write.getMagazine().remove(magazine);
+                write.getMagazines().remove(magazine);
             }
             wjr.saveAll(writer);
             mjr.deleteById(magazineId);
