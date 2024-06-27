@@ -33,7 +33,7 @@ public class MagazineController {
     }
 
     @DeleteMapping("/magazines/{magazineId}")
-    public void deleteMagazine(int magazineId) {
+    public void deleteMagazine(@PathVariable("magazineId") int magazineId) {
         mjs.deleteMagazine(magazineId);
     }
 
